@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -19,11 +20,19 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        response.sendRedirect("login.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        
+        if(session != null){
+            session.invalidate();
+        }
+
         User user = new User();
         user.setEmail(request.getParameter("email"));
         user.setPwd(request.getParameter("pwd"));
@@ -32,7 +41,9 @@ public class LoginServlet extends HttpServlet {
         user = dao.validateLogin(user);
 
         if (user != null) {
-            response.sendRedirect("main.jsp");
+            session = request.getSession();
+            session.setAttribute("UserLogged", user);
+            response.sendRedirect("CareerServlet");
         } else {
             response.sendRedirect("error.jsp");
         }

@@ -25,7 +25,9 @@ public class LoginDAO {
 
             ResultSet rs = pstat.executeQuery();
 
-            while (rs.next()) {                                
+            while (rs.next()) {        
+                user.setId(rs.getInt("userId"));
+                user.setEmail(rs.getString("email"));
                 user.setName(rs.getString("name"));
                 return user;
             }

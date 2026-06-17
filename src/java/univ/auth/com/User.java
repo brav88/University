@@ -10,6 +10,15 @@ package univ.auth.com;
  */
 public class User {
  
+    private int Id;
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }
+
+    public int getId() {
+        return Id;
+    }
     private String Name;
     private String Email;
     private String Pwd;
