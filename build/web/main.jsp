@@ -23,7 +23,7 @@
         %>
 
         <nav class="navbar bg-primary" data-bs-theme="dark">
-            <a class="navbar-brand" href="main.js" style="margin-left: 15px">University welcome <%=user.getName()%></a>
+            <a class="navbar-brand" href="CareerServlet" style="margin-left: 15px">University welcome <%=user.getName()%></a>
         </nav>
 
         <div class="container" style="margin-top:20px">

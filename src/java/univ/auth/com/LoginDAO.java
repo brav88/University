@@ -18,7 +18,12 @@ public class LoginDAO {
             Database db = new Database();
             Connection conn = db.getConnection();
 
-            PreparedStatement pstat = conn.prepareStatement("SELECT * FROM user WHERE email = ? AND pwd = ?");
+            String sql = " SELECT * FROM user u " +
+                         "    LEFT JOIN enrollment e " +
+                         "    ON u.userId = e.userId " +
+                         " WHERE u.email = ? AND u.pwd = ? ";
+            
+            PreparedStatement pstat = conn.prepareStatement(sql);
 
             pstat.setString(1, user.getEmail());
             pstat.setString(2, user.getPwd());
@@ -29,6 +34,8 @@ public class LoginDAO {
                 user.setId(rs.getInt("userId"));
                 user.setEmail(rs.getString("email"));
                 user.setName(rs.getString("name"));
+                user.setCareerId(rs.getInt("careerId"));
+                user.setEnrollmentId(rs.getInt("enrollmentId"));
                 return user;
             }
 

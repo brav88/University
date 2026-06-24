@@ -9,21 +9,20 @@ package univ.auth.com;
  * @author Personal
  */
 public class User {
- 
+
     private int Id;
-
-    public void setId(int Id) {
-        this.Id = Id;
-    }
-
-    public int getId() {
-        return Id;
-    }
     private String Name;
     private String Email;
     private String Pwd;
 
+    private int CareerId;
+    private int EnrollmentId;
+
     public User() {
+    }
+
+    public int getId() {
+        return Id;
     }
 
     public String getName() {
@@ -38,6 +37,18 @@ public class User {
         return Pwd;
     }
 
+    public int getCareerId() {
+        return CareerId;
+    }
+    
+     public int getEnrollmentId() {
+        return EnrollmentId;
+    }
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }
+
     public void setName(String Name) {
         this.Name = Name;
     }
@@ -48,5 +59,13 @@ public class User {
 
     public void setPwd(String Pwd) {
         this.Pwd = Pwd;
+    }
+
+    public void setCareerId(int CareerId) {
+        this.CareerId = CareerId;
+    }
+    
+    public void setEnrollmentId(int EnrollmentId) {
+        this.EnrollmentId = EnrollmentId;
     }
 }

@@ -6,7 +6,6 @@ package univ.course.com;
 
 import java.sql.*;
 import java.util.*;
-import univ.career.com.Career;
 import univ.career.com.CareerDAO;
 import univ.database.com.Database;
 

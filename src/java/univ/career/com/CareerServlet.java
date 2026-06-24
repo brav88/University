@@ -16,7 +16,7 @@ import java.util.*;
  * @author Personal
  */
 public class CareerServlet extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CareerDAO dao = new CareerDAO();
@@ -25,9 +25,8 @@ public class CareerServlet extends HttpServlet {
         request.getRequestDispatcher("main.jsp").forward(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   
+       
     }
 }

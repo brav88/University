@@ -18,15 +18,24 @@
     </head>
     <body>
         <%
+            int careerId = (int) request.getAttribute("careerId");
             User user = (User) session.getAttribute("UserLogged");
             List<Course> courseList = (List<Course>) request.getAttribute("courseList");
+            List<Integer> courseEnrollmentList = (List<Integer>) request.getAttribute("courseEnrollmentList");
         %>
 
         <nav class="navbar bg-primary" data-bs-theme="dark">
-            <a class="navbar-brand" href="main.js" style="margin-left: 15px">University welcome <%=user.getName()%></a>
+            <a class="navbar-brand" href="CareerServlet" style="margin-left: 15px">University welcome <%=user.getName()%></a>
         </nav>
 
         <div class="container" style="margin-top:20px">
+            <% if (user.getCareerId() == 0) {%>
+            <form method="POST" action="EnrollmentServlet?scope=main">
+                <input type="hidden" name="userId" value="<%=user.getId()%>">
+                <input type="hidden" name="careerId" value="<%=careerId%>">
+                <button type="submit" class="btn btn-primary">Enroll me!</button>
+            </form>
+            <% } %>    
             <div class="row">
                 <%
                     String category = "";
@@ -51,6 +60,9 @@
                         <tr>
                             <th scope="col" style="width: 70%;">Nombre del Curso</th>
                             <th scope="col" style="width: 30%;">Creditos</th>
+                                <% if (user.getCareerId() == careerId) {%>
+                            <th scope="col" style="width: 30%;">Actions</th>
+                                <% } %>  
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +75,21 @@
                         <tr>
                             <td><strong><%= course.getName()%></strong></td>
                             <td><span class="badge bg-secondary"><%= course.getCredits()%></span></td>
+                                <% if (user.getCareerId() == careerId) {%>
+                            <td>
+                                <%
+                                    String scope = courseEnrollmentList.contains(course.getId()) ? "Delete" : "Select";
+                                    String style = courseEnrollmentList.contains(course.getId()) ? "danger" : "primary";
+                                %>                                                               
+                                <form method="POST" action="EnrollmentServlet?scope=<%= scope%>"> 
+                                    <input type="hidden" name="careerId" value="<%=careerId%>">
+                                    <input type="hidden" name="enrollmentId" value="<%= user.getEnrollmentId()%>" ></input>
+                                    <input type="hidden" name="courseId" value="<%= course.getId()%>"></input>      
+                                    <button  type="submit" class="btn btn-<%= style%>"><%= scope%></button> 
+                                </form>
+
+                            </td>
+                            <% } %>  
                         </tr>
 
                         <%
